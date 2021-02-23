@@ -1,3 +1,5 @@
+# This is a simple blackjack game created by react hooks and deck api
+
 ## How to use?
 In your command line:
 
