@@ -12,8 +12,6 @@ const App = () => {
     })
     const [gameOver, setGameOver] = useState(false)
     const [winner,setWinner] = useState()
-
-    console.log("winner", winner)
     useEffect(() => {
         const gameResult = async () => {
             const playerDeckVal = await playerDeckValue()
@@ -69,7 +67,7 @@ const App = () => {
 
     //player hits 
     const playerHit = async () => {
-        if(deckInfo.playerDeck.length < 5){
+        if(deckInfo.playerDeck.length < 5 && deckInfo.playerDeck.length !== 0){
             const response = await axios.get(`${api_url}/deck/${deckInfo.deckId}/draw/?count=1`)
             const card_data = await response.data.cards[0]
             setDeckInfo({...deckInfo, playerDeck: [...deckInfo.playerDeck, card_data]});
@@ -81,14 +79,17 @@ const App = () => {
 
     //player stands
     const playerStands = async () => {
+      if(deckInfo.playerDeck.length !== 0){
         let cardsForDealer = deckInfo.playerDeck.length
+        
         const response = await axios.get(`${api_url}/deck/${deckInfo.deckId}/draw/?count=${cardsForDealer}`)
         for(let i = 0; i < cardsForDealer - 1 ; i++) {
             let dealer_card = await response.data.cards[i];
             setDeckInfo({...deckInfo, dealerDeck: [...deckInfo.dealerDeck, dealer_card]});
         }
+      }
+        
     }
-  console.log("test", deckInfo.playerDeck)
     //check the value of player deck after each hit.
     const playerDeckValue = async () => {
         let cardSum = 0;
