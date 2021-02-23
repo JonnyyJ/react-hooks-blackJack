@@ -3,7 +3,7 @@ In your command line:
 
 ### `git clone https://github.com/JonnyyJ/react-hooks-blackJack.git`
 
-Then cd react-hooks-blackJack do
+Then type: cd react-hooks-blackJack
 
 ### `npm install`
 
